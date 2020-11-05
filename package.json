@@ -1,0 +1,23 @@
+{
+  "name": "mern-movie-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "enginge": {
+    "node": "12.x",
+    "npm": "6.14.6"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "backend": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htran922/mern-movie-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/htran922/mern-movie-app/issues"
+  },
+  "homepage": "https://github.com/htran922/mern-movie-app#readme"
+}
