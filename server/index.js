@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Routes
-app.get("/api/user/auth", auth, (req, res) => {
+app.get("/api/users/auth", auth, (req, res) => {
     // We need to send the data from auth to the client in the response object
     res.status(200).json({
         _id: req._id,
@@ -43,15 +43,15 @@ app.post('/api/users/register', (req, res) => {
     // The callback function itself has two parameters: 1) err, should one occur and
     // 2) the document that is inserted into the collection
     user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
+        if (err) return res.json({ loginSuccess: false, err });
         res.status(200).json({
-            sucess:true,
+            loginSuccess: true,
             userData: doc
         })
     })
 })
 
-app.post('/api/user/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
     // Find the email
     User.findOne({ email: req.body.email }, (err, user) => {
         if(!user) {
@@ -85,7 +85,7 @@ app.post('/api/user/login', (req, res) => {
 })
 
 // User logout which requires the user to first be authenticated
-app.get('/api/user/logout', auth, (req, res) => {
+app.get('/api/users/logout', auth, (req, res) => {
     // What we are doing here is setting the auth token in MongoDB to empty so that
     // authentication is not satisfied
     User.findOneAndUpdate(
