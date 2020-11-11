@@ -8,7 +8,7 @@ const { auth } = require("../middleware/auth");
 //                                  User
 //========================================================================
 
-app.get("/auth", auth, (req, res) => {
+router.get("/auth", auth, (req, res) => {
     // We need to send the data from auth to the client in the response object
     res.status(200).json({
         _id: req.user._id,
@@ -22,7 +22,7 @@ app.get("/auth", auth, (req, res) => {
     });
 })
 
-app.post('/register', (req, res) => {
+router.post('/register', (req, res) => {
     const user = new User(req.body);
 
     // Use mongoose save method which takes a callback function as a parameter
@@ -36,7 +36,7 @@ app.post('/register', (req, res) => {
     })
 })
 
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
     // Find the email
     User.findOne({ email: req.body.email }, (err, user) => {
         if(!user) {
@@ -73,7 +73,7 @@ app.post('/login', (req, res) => {
 })
 
 // User logout which requires the user to first be authenticated
-app.get('/logout', auth, (req, res) => {
+router.get('/logout', auth, (req, res) => {
     // What we are doing here is setting the auth token in MongoDB to empty so that
     // authentication is not satisfied
     User.findOneAndUpdate(
