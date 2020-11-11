@@ -1,6 +1,6 @@
 // Only for authorized users
 // Bring in user model
-const { User } = require('../models/user');
+const { User } = require('../models/User');
 
 let auth = (req, res, next) => {
     // Check if the token is valid

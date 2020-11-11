@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const config = require('./config/key');
 
-const { User } = require('./models/user');
+const { User } = require('./models/User');
 const { auth } = require('./middleware/auth');
 
 const port = process.env.PORT || 5000;

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 
 // Create Schema
 const userSchema = mongoose.Schema({
@@ -27,6 +28,7 @@ const userSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    image: String,
     token: {
         type: String,
     },
@@ -89,8 +91,15 @@ userSchema.methods.comparePassword = function(plainPassword, cb) {
 userSchema.methods.generateToken = function(cb) {
     // Make variable to refer to user schema
     var user = this;
+    console.log('user: ', user);
+    console.log('userSchema: ', userSchema)
     // Create the token
     var token = jwt.sign(user._id.toHexString(), 'secret')
+    // Token expiration
+    var oneHour = moment().add(1, 'hour').valueOf();
+
+    // Define token expiration
+    user.tokenExp = oneHour;
     // Store token in user schema
     user.token = token;
     // Use mongoose save method which takes a callback function as a parameter
