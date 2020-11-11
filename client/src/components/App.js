@@ -1,21 +1,36 @@
-import React from 'react';
+// Suspense for data fetching is an experimental feature
+// Suspense component lets you "wait" for some code to load and declaratively 
+// secify a loading state (like a spinner) while we're waiting
+import React, { Suspense } from 'react';
 import { Route, Switch } from "react-router-dom";
-import About from "./about";
-import Login from "./RegisterLogin";
-import Register from "./RegisterLogin/register"
+import Auth from "../hoc/auth";
 
+// Bring in pages for this application
+import LandingPage from "./views/LandingPage/LandingPage";
+import LoginPage from "./views/LoginPage/LoginPage";
+import RegisterPage from "./views/RegisterPage/RegisterPage";
+import NavBar from "./views/NavBar/NavBar";
+import Footer from "./views/Footer/Footer";
+
+/*
+ * null - anyone can access page
+ * true - only logged in users can access
+ * false - logged in users cannot access
+*/
 
 function App() {
   return (
-    <div>
-      <Switch>
-        {/* <Route path="/" component={Home}/> */}
-        <Route path="/about" component={About}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/register" component={Register}/>
-
-      </Switch>
-    </div>
+    <Suspense fallback={(<div>Loading...</div>)}>
+      <NavBar />
+      <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
+        <Switch>
+          <Route exact path="/" component={Auth(LandingPage, null)} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} />
+          <Route exact path="/register" component={Auth(RegisterPage, false)} />
+        </Switch>
+      </div>
+      <Footer />
+    </Suspense>
   );
 }
 
