@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 
 function Footer() {
     return (
@@ -11,7 +11,7 @@ function Footer() {
             justifyContent: 'center', 
             fontSize: '1rem' 
         }}>
-           <p>Happy Coding <Icon type="smile" /></p> 
+           <p>Happy Coding <SmileOutlined /></p> 
         </div>
     );
 }
