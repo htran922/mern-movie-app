@@ -177,7 +177,7 @@ function RegisterPage(props) {
                                 <Input 
                                     id="confirmPassword"
                                     placeholder="Confirm password"
-                                    type="confirmPassword"
+                                    type="password"
                                     value={values.confirmPassword}
                                     onChange={handleChange}
                                     onBlur={handleBlur}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // Using higher order components for authenticated routing
 // HOC is just a react component that wraps another one
 import React, { useEffect } from 'react';
@@ -8,7 +9,10 @@ export default function (SpecificComponent, option, adminRoute=null) {
     function AuthenticationCheck(props) {
         let user = useSelector(state => state.user);
         const dispatch = useDispatch();
-
+    
+        // The Effect Hook lets you perform side effects in function components
+        // Think of the useEffect Hook as componentDidMount, componentDidUpdate
+        // and componentWillUnmount combined
         useEffect(() => {
             // To know current status, send auth request
             dispatch(auth())

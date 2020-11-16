@@ -30,7 +30,10 @@ function LoginPage(props) {
         // Formik helps getting values in and out of form state, handling validation and error messages,
         // and handling form submission
         <Formik
-            initialValues={{email: initialEmail, password: ''}}
+            initialValues={{
+                email: initialEmail,
+                password: '',
+            }}
             validationSchema={Yup.object().shape({
                 email: Yup.string()
                     .email('Email is invalid')
@@ -40,36 +43,34 @@ function LoginPage(props) {
                     .required('Password is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
-                // The setTimeout method invokes a function or runs some code after a period of time
                 setTimeout(() => {
                     let dataToSubmit = {
                         email: values.email,
                         password: values.password
-                    };
-
-                    dispatch(loginUser(dataToSubmit))
-                        .then( response => {
-                            if (response.payload.loginSuccess) {
-                                window.localStorage.setItem('userId', response.payload.userId);
-                                if (rememberMe === true) {
-                                    window.localStorage.setItem('rememberMe', values.id);
-                                } else {
-                                    localStorage.removeIten('rememberMe');
-                                }
-                                props.history.push("/");
+                };
+    
+                dispatch(loginUser(dataToSubmit))
+                    .then(response => {
+                        if (response.payload.loginSuccess) {
+                            window.localStorage.setItem('userId', response.payload.userId);
+                            if (rememberMe === true) {
+                                window.localStorage.setItem('rememberMe', values.id);
                             } else {
-                                setFormErrorMessage('Email and password do not match')
+                                localStorage.removeItem('rememberMe');
                             }
-                        })
-                        .catch( err => {
-                            setFormErrorMessage('Email and password do not match');
-                            setTimeout(() => {
-                                setFormErrorMessage("")
-                            }, 3000);
-                        });
-                    
-                    setSubmitting(false);
-                }, 500);
+                            props.history.push("/");
+                        } else {
+                            setFormErrorMessage('Check out your Account or Password again')
+                        }
+                    })
+                    .catch(err => {
+                        setFormErrorMessage('Check out your Account or Password again')
+                        setTimeout(() => {
+                            setFormErrorMessage("")
+                        }, 3000);
+                    });
+                setSubmitting(false);
+            }, 500);
             }}
         >
 
@@ -90,7 +91,7 @@ function LoginPage(props) {
                 return (
                     <div className="app">
                         <Title level={2}>Log In</Title>
-                        <Form onSubmit={handleSubmit} style={{ width: '350px' }}>
+                        <form onSubmit={handleSubmit} style={{ width: '350px' }}>
                             <Form.Item required>
                                 <Input
                                     id="email"
@@ -152,7 +153,7 @@ function LoginPage(props) {
                                 </div>
                                 Or <a href="/register">register now!</a>
                             </Form.Item>
-                        </Form>
+                        </form>
                     </div>
                 )
 
