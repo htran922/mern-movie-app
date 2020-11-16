@@ -6,7 +6,7 @@ import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from 'formik';
 import * as Yup from 'yup'; // Object Schema validation
 import { Form, Input, Button, Checkbox, Typography } from 'antd';
-import { UserOutlined } from '@ant-design/icons'
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // useDispatch() is a hook that returns a reference to the dispatch function 
 // from the Redux store
 import { useDispatch } from 'react-redux'; 
@@ -109,7 +109,7 @@ function LoginPage(props) {
                             <Form.Item required>
                                 <Input 
                                     id="password"
-                                    prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25' }}/>}
+                                    prefix={<LockOutlined  style={{ color: 'rgba(0,0,0,.25' }}/>}
                                     placeholder="Enter password"
                                     type="password"
                                     value={values.password}

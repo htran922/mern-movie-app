@@ -9,7 +9,7 @@ export default function ( state={}, action ) {
     switch (action.type) {
     
         case REGISTER_USER:
-            return { ...state, loginSuccess: action.payload }
+            return { ...state, registerSuccess: action.payload }
         
         // If the action type is LOGIN_USER
         case LOGIN_USER:
