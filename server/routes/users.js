@@ -29,9 +29,9 @@ router.post('/register', (req, res) => {
     // The callback function itself has two parameters: 1) err, should one occur and
     // 2) the document that is inserted into the collection
     user.save((err, doc) => {
-        if (err) return res.json({ loginSuccess: false, err });
+        if (err) return res.json({ registerSuccess: false, err });
         res.status(200).json({
-            loginSuccess: true
+            registerSuccess: true
         })
     })
 })

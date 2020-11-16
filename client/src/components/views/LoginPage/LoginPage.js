@@ -90,7 +90,7 @@ function LoginPage(props) {
                 return (
                     <div className="app">
                         <Title level={2}>Log In</Title>
-                        <form onSubmit={handleSubmit} style={{ width: '350px' }}>
+                        <Form onSubmit={handleSubmit} style={{ width: '350px' }}>
                             <Form.Item required>
                                 <Input
                                     id="email"
@@ -152,7 +152,7 @@ function LoginPage(props) {
                                 </div>
                                 Or <a href="/register">register now!</a>
                             </Form.Item>
-                        </form>
+                        </Form>
                     </div>
                 )
 
