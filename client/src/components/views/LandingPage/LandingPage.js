@@ -17,7 +17,7 @@ function LandingPage() {
         // The first time we load the page we want to only load the first page
         const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
         fetchMovies(endpoint)
-    }, [])
+    })
 
     const fetchMovies = (path) => {
         // Get popular movies
@@ -25,8 +25,7 @@ function LandingPage() {
         fetch(path)
             .then(response => response.json())
             .then(response => { 
-                console.log(response)
-                // Could also use concat() here
+                // Could also use concat() here instead of spread operator
                 setMovies([...Movies, ...response.results])
                 setCurrentPage(response.page)
             })
