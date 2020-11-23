@@ -37,5 +37,6 @@ if(process.env.NODE_ENV === "production") {
 
 // Routes
 app.use('/api/users', require('./routes/users'));
+app.use('/api/favorite', require('./routes/favorite'));
 
 app.listen(port, () => { console.log(`Server listening on port ${port}`)})

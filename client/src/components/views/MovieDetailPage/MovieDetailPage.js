@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { API_URL, API_KEY, IMAGE_URL } from '../../Config';
-import MainImage from '../LandingPage/Sections/MainImage';
 import { Descriptions, Button, Row } from 'antd';
+import MainImage from '../LandingPage/Sections/MainImage';
 import GridCard from '../LandingPage/Sections/GridCard';
+import Favorite from './Sections/Favorite';
 
 function MovieDetailPage(props) {
 
@@ -10,10 +11,9 @@ function MovieDetailPage(props) {
     const [Crews, setCrews] = useState([]);
     const [ActorToggle, setActorToggle] = useState([]);
 
+    const movieId = props.match.params.movieId;
+
     useEffect(() => {
-
-        const movieId = props.match.params.movieId
-
         // Fetch single movie
         fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`)
             .then( response => response.json() )
@@ -46,7 +46,11 @@ function MovieDetailPage(props) {
             {/* Body */}
             <div style={{ width: '85%', margin: '1rem auto' }}>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button>Add to Favorites</Button>
+                    <Favorite 
+                        userFrom={localStorage.getItem('userId')}
+                        movieId={movieId}
+                        movieInfo={Movie}           // Will allow for access to movie title, image and runtime
+                    />
                 </div>
 
                 {/* Movie Info Table */}
