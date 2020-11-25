@@ -7,11 +7,11 @@ import Favorite from './Sections/Favorite';
 
 function MovieDetailPage(props) {
 
+    const movieId = props.match.params.movieId;
+
     const [Movie, setMovie] = useState([]);
     const [Crews, setCrews] = useState([]);
     const [ActorToggle, setActorToggle] = useState([]);
-
-    const movieId = props.match.params.movieId;
 
     useEffect(() => {
         // Fetch single movie

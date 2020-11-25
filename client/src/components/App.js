@@ -12,6 +12,7 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer";
 import MovieDetailPage from "./views/MovieDetailPage/MovieDetailPage";
+import FavoriteMovies from "./views/FavoriteMovies/FavoriteMovies";
 
 /*
  * null - anyone can access page
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/login" component={Auth(LoginPage, false)} />
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/movie/:movieId" component={Auth(MovieDetailPage, null)} />
+          <Route exact path="/favorite" component={Auth(FavoriteMovies, null)} />
         </Switch>
       </div>
       <Footer />

@@ -64,4 +64,15 @@ router.post('/removeFromFavorite', auth, (req, res) => {
 
 })
 
+router.post('/getFavoriteMovies', auth, (req, res) => {
+    // Find all the movies the user added as favorite movies
+    Favorite.find({ 'userFrom': req.body.userFrom })
+        .exec((err, myFavoriteMovies) => {
+            if(err) return res.status(400).send(err);
+            return res.status(200).json({ success: true, myFavoriteMovies })
+        })
+
+})
+
+
 module.exports = router;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Button } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
 
@@ -13,30 +14,9 @@ function Favorite(props) {
         userFrom: props.userFrom,
         movieId: props.movieId,
         movieTitle: props.movieInfo.original_title,
-        movieImage: props.movieInfo.backdrop_bath,
+        movieImage: props.movieInfo.backdrop_path,
         movieRuntime: props.movieInfo.runtime
     }
-
-    // Fetch number of how many people added this movie to their own favorite list
-    useEffect(() => {
-        axios.post('/api/favorite/favoriteNumber', variable) 
-            .then (response => {
-                if (response.data.success) {
-                    setFavoriteNumber(response.data.favoriteNumber);
-                } else {
-                    alert ('Failed to get favoriteNumber')
-                }
-            })
-
-        axios.post('/api/favorite/favorited', variable)
-            .then(response => {
-                if(response.data.success) {
-                    setFavorited(response.data.favorited);
-                } else {
-                    alert('Failed to get if user favorited this movie')
-                }
-            })
-    })
 
     const onClickFavorite = () => {
         if (Favorited) {
@@ -65,10 +45,30 @@ function Favorite(props) {
         }
     }
 
+    // Fetch number of how many people added this movie to their own favorite list
+    useEffect(() => {
+        axios.post('/api/favorite/favoriteNumber', variable) 
+            .then (response => {
+                if (response.data.success) {
+                    setFavoriteNumber(response.data.favoriteNumber);
+                } else {
+                    alert ('Failed to get favoriteNumber')
+                }
+            })
+
+        axios.post('/api/favorite/favorited', variable)
+            .then(response => {
+                if(response.data.success) {
+                    setFavorited(response.data.favorited);
+                } else {
+                    alert('Failed to get if user favorited this movie')
+                }
+            })
+    })
+
     return (
-        <div>
-            <button onClick={onClickFavorite}>{Favorited ? <HeartFilled/> : <HeartOutlined/>} {FavoriteNumber}</button>
-        </div>
+        <Button onClick={onClickFavorite}>{Favorited ? <HeartFilled/> : <HeartOutlined/>} {FavoriteNumber}</Button>
+
     );
 }
 
