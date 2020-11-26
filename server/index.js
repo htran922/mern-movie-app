@@ -18,7 +18,7 @@ const connect = mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUn
     .catch(err => console.log(err));
 
 // Middleware
-app.use(cors());
+// app.use(cors({origin: true, credentials: true}));
 app.use(bodyParser.urlencoded({ extended: true })); // Support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.json()); // To get JSON data and support parsing of application/json type post data
 app.use(cookieParser());

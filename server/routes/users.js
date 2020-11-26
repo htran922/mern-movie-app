@@ -8,7 +8,7 @@ const { auth } = require("../middleware/auth");
 //                                  User
 //========================================================================
 
-router.get("/auth", auth, (req, res) => {
+router.get('/auth', auth, (req, res) => {
     // We need to send the data from auth to the client in the response object
     res.status(200).json({
         _id: req.user._id,

@@ -2,14 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { Favorite } = require("../models/Favorite");
 
-const { auth } = require("../middleware/auth");
-const { route } = require('./users');
-
 //========================================================================
 //                                  Favorite
 //======================================================================== 
 
-router.post('/favoriteNumber', auth, (req, res) => {
+router.post('/favoriteNumber', (req, res) => {
     // Find information about 'favorite movie' inside Favorite collection by movidId
     Favorite.find({"movieId": req.body.movieId})
         .exec((err, favorite) => {
@@ -18,7 +15,7 @@ router.post('/favoriteNumber', auth, (req, res) => {
         })
 });
 
-router.post('/favorited', auth, (req, res) => {
+router.post('/favorited', (req, res) => {
     // Find information on whether user already added this movie to their favorite list
     // Look inside the Favorite collection and find by movieId and userFrom (which is the user ID)
     Favorite.find({"movieId": req.body.movieId, "userFrom": req.body.userFrom})
@@ -44,7 +41,7 @@ router.post('/favorited', auth, (req, res) => {
         })
 });
 
-router.post('/addToFavorite', auth, (req, res) => {
+router.post('/addToFavorite', (req, res) => {
     // Save the information about the movie or user id inside the Favorite collection
     const favorite = new Favorite(req.body);
 
@@ -54,7 +51,7 @@ router.post('/addToFavorite', auth, (req, res) => {
     }) 
 })
 
-router.post('/removeFromFavorite', auth, (req, res) => {
+router.post('/removeFromFavorite', (req, res) => {
     // Find the favorited movie by movie id and delete it
     Favorite.findOneAndDelete({ movieId: req.body.movieId , userFrom: req.body.userFrom })
     .exec((err, doc) => {
@@ -64,7 +61,7 @@ router.post('/removeFromFavorite', auth, (req, res) => {
 
 })
 
-router.post('/getFavoriteMovies', auth, (req, res) => {
+router.post('/getFavoriteMovies', (req, res) => {
     // Find all the movies the user added as favorite movies
     Favorite.find({ 'userFrom': req.body.userFrom })
         .exec((err, myFavoriteMovies) => {

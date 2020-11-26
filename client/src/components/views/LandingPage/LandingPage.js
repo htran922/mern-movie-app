@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { API_URL, API_KEY, IMAGE_URL } from '../../Config';
 import { Typography, Row } from 'antd';
 import MainImage from './Sections/MainImage';
-import GridCard from './Sections/GridCard';
+import GridCard from '../../shared/GridCard';
 
 const { Title } = Typography;
 

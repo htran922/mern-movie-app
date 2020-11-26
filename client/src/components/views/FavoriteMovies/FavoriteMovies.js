@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './Favorite.css'
 import axios from 'axios';
-import { Button, Popover } from 'antd';
+import { Button, Popover, Typography } from 'antd';
 import { IMAGE_URL } from "../../Config"
 
-function FavoriteMovies(props) {
+const { Title } = Typography;
 
-    const variable = {
+function FavoriteMovies(props) {
+    const user = useSelector(state => state.user)
+    
+    const [ FavoriteMovies, setFavoriteMovies ] = useState([]);
+    const [ LoadingFavoriteMovies, setLoadingFavoriteMovies ] = useState(true);
+    let variable = {
         userFrom: localStorage.getItem('userId')
     }
-
-    const [ FavoriteMovies, setFavoriteMovies] = useState([]);
 
     useEffect(() => {
         fetchFavoriteMovies();
@@ -22,18 +26,18 @@ function FavoriteMovies(props) {
                 if (response.data.success) {
                     // Store favorite movies information inside state
                     setFavoriteMovies(response.data.myFavoriteMovies);
+                    setLoadingFavoriteMovies(false);
                 } else {
                     alert("Failed to get favorite movies")
                 }
-            })
-            .catch(err => { console.log(err) })   
+            }) 
     }
 
-    const onClickRemove = (movieId) => {
+    const onClickRemove = (movieId, userFrom) => {
 
         const info = {
             movieId: movieId,
-            userFrom: localStorage.getItem('userId')
+            userFrom: userFrom
 
         }
         axios.post('/api/favorite/removeFromFavorite', info)
@@ -41,20 +45,21 @@ function FavoriteMovies(props) {
                 if (response.data.success) {
                     // We want to retrigger the fetch api for getting favorite movies
                     fetchFavoriteMovies();
+                } else {
+                    alert("Failed to remove from favorite movies list");
                 }
             })
     }
 
     // Map favorite movies information into table
-    const renderTableBody = FavoriteMovies.map((movie, index) => {
-        console.log(movie);
+    const renderGridCards = FavoriteMovies.map((movie, index) => {
         const content = (
             <div>
-                {/* {movie.movieImage ? 
-                    <img src={`${IMAGE_URL}w500${movieImage}`} alt="movie image"/>    
+                { movie.movieImage ? 
+                    <img src={`${IMAGE_URL}w500${movie.movieImage}`} alt={`${movie.movieTitle}`}/>
                     :
-                    "image unavailable"
-                } */}
+                    "Movie image unavailable" 
+                }
             </div>
         )
 
@@ -64,29 +69,39 @@ function FavoriteMovies(props) {
                     <td>{movie.movieTitle}</td>
                 </Popover>
                 <td>{movie.movieRuntime}</td>
-                <td><Button onClick={() => onClickRemove(movie.movieId)}>Remove</Button></td>
+                <td><Button onClick={() => onClickRemove(movie.movieId, movie.userFrom)}>Remove</Button></td>
             </tr>
         )
     })
 
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
-            <h3>My Favorite Movies</h3>
+            <Title level={2}>My Favorite Movies</Title>
             <hr/>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Movie Title</th>
-                        <th>Runtime (minutes)</th>
-                        <th>Remove from Favorites</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderTableBody}
-                </tbody>
-            </table>
+            {
+                user.userData && !user.userData.isAuth ?
+                <div style={{ width: '100%', fontSize: '2rem', height: '500px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <p>Please Log in first...</p>
+                    <a href="/login">Go to Login page</a>
+                </div> :
+
+                !LoadingFavoriteMovies && 
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Movie Title</th>
+                            <th>Runtime (minutes)</th>
+                            <th>Remove from Favorites</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {renderGridCards}
+                    </tbody>
+                </table>
+            }
+        
         </div>
-    );
+    )
 }
 
 export default FavoriteMovies;
