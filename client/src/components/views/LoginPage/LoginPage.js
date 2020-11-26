@@ -15,7 +15,7 @@ const { Title } = Typography;
 
 function LoginPage(props) {
     const dispatch = useDispatch();
-    const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
+    const rememberMeChecked = window.localStorage.getItem("rememberMe") ? true : false;
 
     const [formErrorMessage, setFormErrorMessage] = useState('');
     const [rememberMe, setRememberMe] = useState(rememberMeChecked);
@@ -29,7 +29,7 @@ function LoginPage(props) {
     return (
         // Formik helps getting values in and out of form state, handling validation and error messages,
         // and handling form submission
-        <Formik
+        <Formik     
             initialValues={{
                 email: initialEmail,
                 password: '',
@@ -52,9 +52,9 @@ function LoginPage(props) {
                 dispatch(loginUser(dataToSubmit))
                     .then(response => {
                         if (response.payload.loginSuccess) {
-                            window.localStorage.setItem('userId', response.payload.userId);
-                            if (rememberMe === true) {
-                                window.localStorage.setItem('rememberMe', values.id);
+                            localStorage.setItem('userId', response.payload.userId);
+                            if (rememberMe) {
+                                localStorage.setItem('rememberMe', values.email);
                             } else {
                                 localStorage.removeItem('rememberMe');
                             }

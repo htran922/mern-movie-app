@@ -6,7 +6,7 @@ const favoriteSchema = mongoose.Schema({
 
     userFrom: {
         // Allows us to reference the User model
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User'
     },
     movieId: {
@@ -20,8 +20,8 @@ const favoriteSchema = mongoose.Schema({
     },
     movieRuntime: {
         type: String
-    }
-})
+    }, 
+}, { timestamps: true })
 
 const Favorite = mongoose.model('Favorite', favoriteSchema);
 

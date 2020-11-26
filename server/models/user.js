@@ -68,7 +68,7 @@ userSchema.pre('save', function (next){
     } else {
         next();
     }
-})
+});
 
 // Create a method to compare passwords
 // cb is a callback to be fired once the data has been compared
@@ -91,8 +91,6 @@ userSchema.methods.comparePassword = function(plainPassword, cb) {
 userSchema.methods.generateToken = function(cb) {
     // Make variable to refer to user schema
     var user = this;
-    console.log('user: ', user);
-    console.log('userSchema: ', userSchema)
     // Create the token
     var token = jwt.sign(user._id.toHexString(), 'secret')
     // Token expiration

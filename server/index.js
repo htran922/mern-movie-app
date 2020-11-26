@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true })); // Support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.json()); // To get JSON data and support parsing of application/json type post data
 app.use(cookieParser());
-app.use('/uploads', express.static('uploads')); // Allows for displaying image in NodeJS express server to React client
+// app.use('/uploads', express.static('uploads')); // Allows for displaying image in NodeJS express server to React client
 
 // Serve static assets if in production mode
 if(process.env.NODE_ENV === "production") {
