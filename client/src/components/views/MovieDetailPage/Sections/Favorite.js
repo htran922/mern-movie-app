@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 
 function Favorite(props) {
+
+    const user = useSelector(state => state.user);
 
     const [FavoriteNumber, setFavoriteNumber] = useState(0);    // Set initial state to 0
     const [Favorited, setFavorited] = useState(false);          // Set initial state to false
@@ -19,6 +22,11 @@ function Favorite(props) {
     }
 
     const onClickFavorite = () => {
+
+        if (user.userData && !user.userData.isAuth) {
+            alert('Please log in first');
+        }
+
         if (Favorited) {
             // Movie already favorited (heart filled)
             axios.post('/api/favorite/removeFromFavorite', variable)

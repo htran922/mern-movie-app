@@ -60,6 +60,7 @@ function MovieDetailPage(props) {
 
             {/* Body */}
             <div style={{ width: '85%', margin: '1rem auto' }}>
+
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <Favorite 
                         userFrom={localStorage.getItem('userId')}
@@ -67,6 +68,7 @@ function MovieDetailPage(props) {
                         movieInfo={Movie}           // Will allow for access to movie title, image and runtime
                     />
                 </div>
+
 
                 {/* Movie Info Table */}
                 {!LoadingForMovie ?
@@ -83,7 +85,7 @@ function MovieDetailPage(props) {
                 </div>
 
                 <br/>
-                
+
                 {/* Grid Cards for Crew Members */}
                 {ActorToggle &&
                     <Row gutter={[16,16]} >

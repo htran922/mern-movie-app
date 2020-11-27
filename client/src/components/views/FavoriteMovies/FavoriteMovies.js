@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import './Favorite.css'
-import axios from 'axios';
 import { Button, Popover, Typography } from 'antd';
-import { IMAGE_URL } from "../../Config"
+import axios from 'axios';
+import './Favorite.css';
+import { useSelector } from 'react-redux';
+import { IMAGE_URL } from "../../Config";
 
 const { Title } = Typography;
 
-function FavoriteMovies(props) {
+function FavoriteMovies() {
     const user = useSelector(state => state.user)
     
     const [ FavoriteMovies, setFavoriteMovies ] = useState([]);
     const [ LoadingFavoriteMovies, setLoadingFavoriteMovies ] = useState(true);
-    let variable = {
-        userFrom: localStorage.getItem('userId')
-    }
+    let variable = { userFrom: localStorage.getItem('userId') }
 
     useEffect(() => {
         fetchFavoriteMovies();
@@ -40,6 +38,7 @@ function FavoriteMovies(props) {
             userFrom: userFrom
 
         }
+
         axios.post('/api/favorite/removeFromFavorite', info)
             .then (response => {
                 if (response.data.success) {
@@ -65,7 +64,7 @@ function FavoriteMovies(props) {
 
         return (
             <tr key={index}>
-                <Popover content={content} title={movie.movieTitle}>
+                <Popover content={content} title={`${movie.movieTitle}`}>
                     <td>{movie.movieTitle}</td>
                 </Popover>
                 <td>{movie.movieRuntime}</td>

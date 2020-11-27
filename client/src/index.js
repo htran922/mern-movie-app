@@ -1,8 +1,3 @@
-// Polyfill is a piece of code used to provide modern functionality on older browsers that do not natively support it
-import 'react-app-polyfill/ie9';
-import 'react-app-polyfill/ie11';
-// Polyfill for ECMAScript up to 2019
-import 'core-js';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
